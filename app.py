@@ -223,4 +223,4 @@ else:
                 "Complete Phase",
                 value=parent_task.get("completed", False),
                 key=f"{parent_key_base}_cb",
-                help=f"Mark '{parent_task['name']}' and all
+                help=f"Mark '{parent_task['name']}' and all its sub-tasks as complete."
