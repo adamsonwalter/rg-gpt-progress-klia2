@@ -224,3 +224,19 @@ else:
                 value=parent_task.get("completed", False),
                 key=f"{parent_key_base}_cb",
                 help=f"Mark '{parent_task['name']}' and all its sub-tasks as complete."
+            )
+
+            # Check if parent state *changed* due to user interaction
+            if parent_completed != parent_task.get("completed", False):
+                parent_task["completed"] = parent_completed
+                # If parent is checked, check all children. If unchecked, uncheck all children.
+                for child_idx, child_task in enumerate(parent_task.get("children", [])):
+                    child_task["completed"] = parent_completed
+                wbs_changed = True
+                # Need to rerun immediately to reflect child state changes visually
+                st.experimental_rerun()
+
+                "Complete Phase",
+                value=parent_task.get("completed", False),
+                key=f"{parent_key_base}_cb",
+                help=f"Mark '{parent_task['name']}' and all its sub-tasks as complete."
